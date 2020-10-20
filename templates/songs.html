@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Crazy Ex-Girlfriend Song Rankings</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../static/normalize.css">
+  <link rel="stylesheet" href="../static/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    Do you mean this playlist?<Br>
+    <b>Name</b>: {{ data.name }}<br>
+    <b>Description</b>: {{ data.description }}<br>
+    Here are the tracks:<br>
+    <ol>
+    {% for song in data.songs %}
+      <li>{{ song }}</li>
+    {% endfor %}
+    </ol>
+
+    <form action="/makePlaylist" method="POST">
+        <input type="hidden" value={{ data.playlist_uri }} id="playlist_uri" name="playlist_uri">
+        <button>Yes please do the thing</button>
+    </form>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
