@@ -22,9 +22,6 @@ googleapis-common-protos==1.52.0
 gunicorn==20.0.4
 httplib2==0.18.1
 idna==2.10
-ipdb==0.13.4
-ipython==7.18.1
-ipython-genutils==0.2.0
 isodate==0.6.0
 itsdangerous==1.1.0
 jedi==0.17.2
