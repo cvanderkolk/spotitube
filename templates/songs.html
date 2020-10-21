@@ -32,18 +32,33 @@
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    Do you mean this playlist?<Br>
-    <b>Name</b>: {{ data.name }}<br>
-    <b>Description</b>: {{ data.description }}<br>
-    Here are the tracks:<br>
-    <ol>
-    {% for song in data.songs %}
-      <li>{{ song }}</li>
-    {% endfor %}
-    </ol>
-
+    <div class="row">
+        <div class="one-half column">
+            Do you mean this Spotify playlist?<Br>
+                <img style='height: 100%; width: 100%; object-fit: contain' src={{ playlist.images[0].url }}>
+            <b>Name</b>: {{ playlist.name }}<br>
+            <b>Description</b>: {{ playlist.description }}<br>
+            Here are the tracks:<br>
+            <ol>
+                {% for song in songs %}
+                    <li>{{ song }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="one-half column">
+            {% if youtube_playlist %}
+                Importing into this YouTube playlist:<br>
+                <img src={{ youtube_playlist.snippet.thumbnails.high.url }}><br>
+                <H2>{{ youtube_playlist.snippet.title }}</H2><br>
+                <p>{{ youtube_playlist.snippet.description }}</p>
+            {% else %}
+            <p>You didn't select a Youtube playlist, so we're creating one for you with the same name as your Spotify playlist.</p>
+            {% endif %}
+        </div>
+        <p> is all this shit fine with you? </p>
     <form action="/makePlaylist" method="POST">
-        <input type="hidden" value={{ data.playlist_uri }} id="playlist_uri" name="playlist_uri">
+        <input type="hidden" value={{ youtube_playlist.id }} id="youtube_playlist_id" name="youtube_playlist_id">
+        <input type="hidden" value={{ playlist.uri }} id="spotify_playlist_uri" name="spotify_playlist_uri">
         <button>Yes please do the thing</button>
     </form>
   </div>

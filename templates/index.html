@@ -34,9 +34,20 @@
   <div class="container">
     <form action="/dothing" method="POST">
       <div class="row">
-        <div class="six columns">
-          <label for="playlist_uri">Spotify Playlist URI</label>
-          <input class="u-full-width" type="text" id="playlist_uri" name="playlist_uri">
+        <div class="one-half column">
+          <label for="spotify_playlist_uri">Spotify Playlist URI</label>
+          <input class="u-full-width" type="text" id="spotify_playlist_uri" name="spotify_playlist_uri">
+        </div>
+        <div class="one-half column">
+          <table class="u-full-width">
+            {% for playlist in playlists %}
+              <tr>
+                <td><input type="radio" name="youtube_playlist" id={{ playlist.id }} value={{ playlist.id }}></td>
+                <td><img src={{ playlist.snippet.thumbnails.default.url }}></td>
+                <td><a href="https://www.youtube.com/playlist?list={{ playlist.id }}" target="_blank">{{ playlist.snippet.title }}</a></td>
+              </tr>
+            {% endfor %}
+          </table>
         </div>
         <button type="submit">Do the thing</button>
       </div>
