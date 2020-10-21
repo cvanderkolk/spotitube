@@ -1,0 +1,9 @@
+spotipy
+python-dotenv
+python-youtube
+authlib==0.11
+flask==1.0.2
+google-api-python-client
+google-auth
+virtualenv
+gunicorn
