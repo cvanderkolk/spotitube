@@ -63,7 +63,10 @@ def add_songs_to_playlist(songs, youtube_playlist_id):
             video_id = youtube_video['id']['videoId']
             response = youtube.add_video_to_playlist(video_id, youtube_playlist_id)
             # let's wait a moment so we don't get rate limited
-            print('Added {} to your playlist!'.format(response['snippet']['title']))
+            if response:
+                print('Added {} to your playlist!'.format(response['snippet']['title']))
+            else:
+                print('Something went wrong, not adding video')
             time.sleep(1)
         else:
             print('No video found for {}. \n Video info: {}'.format(song, youtube_video))
@@ -73,7 +76,6 @@ def index():
     if google_auth.is_logged_in():
         user_info = google_auth.get_user_info()
         playlists = youtube.get_playlists()['items']
-        print(playlists)
         return render_template('index.html',  user_info=user_info, playlists=playlists)
 
     return 'You are not currently logged in.'
@@ -81,18 +83,14 @@ def index():
 from flask import request
 @app.route('/dothing', methods=['POST'])
 def do_thing():
-    print(request.form)
     playlist_uri = request.form['spotify_playlist_uri']
     youtube_playlist_id = request.form.get('youtube_playlist')
-    print(youtube_playlist_id)
     songs, playlist = get_spotify_playlist(playlist_uri)
     
     if youtube_playlist_id:
         youtube_playlist = youtube.get_playlists(youtube_playlist_id)['items'][0]
     else:
         youtube_playlist = None
-    
-    print(youtube_playlist)
 
     return render_template(
         'songs.html',
@@ -105,8 +103,7 @@ def do_thing():
 def make_playlist():
     playlist_uri = request.form['spotify_playlist_uri']
     youtube_playlist_id = request.form.get('youtube_playlist_id')
-    print(request.form)
-    
+
     songs, playlist = get_spotify_playlist(playlist_uri)
     now = datetime.now()
     if not playlist.get('name'):
@@ -127,4 +124,3 @@ def make_playlist():
 # 1) list youtube playlists and add checkboxes so a user can select an existing playlist to add to
 # 2) make it prettier
 # 3) spotify auth, list YOUR public playlists
-# 4) 
