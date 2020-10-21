@@ -77,7 +77,8 @@ def index():
         user_info = google_auth.get_user_info()
         playlists = youtube.get_playlists()['items']
         return render_template('index.html',  user_info=user_info, playlists=playlists)
-
+    else:
+        return render_template('login.html')
     return 'You are not currently logged in.'
 
 from flask import request
