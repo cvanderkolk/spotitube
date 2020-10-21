@@ -87,7 +87,7 @@ def do_thing():
     playlist_uri = request.form['spotify_playlist_uri']
     youtube_playlist_id = request.form.get('youtube_playlist')
     songs, playlist = get_spotify_playlist(playlist_uri)
-    
+
     if youtube_playlist_id:
         youtube_playlist = youtube.get_playlists(youtube_playlist_id)['items'][0]
     else:
