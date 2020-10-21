@@ -51,13 +51,13 @@
                 <img src={{ youtube_playlist.snippet.thumbnails.high.url }}><br>
                 <H2>{{ youtube_playlist.snippet.title }}</H2><br>
                 <p>{{ youtube_playlist.snippet.description }}</p>
+                <input type="hidden" value={{ youtube_playlist.id }} id="youtube_playlist_id" name="youtube_playlist_id">
             {% else %}
-            <p>You didn't select a Youtube playlist, so we're creating one for you with the same name as your Spotify playlist.</p>
+                <p>You didn't select a Youtube playlist, so we're creating one for you with the same name as your Spotify playlist.</p>
             {% endif %}
         </div>
         <p> is all this shit fine with you? </p>
     <form action="/makePlaylist" method="POST">
-        <input type="hidden" value={{ youtube_playlist.id }} id="youtube_playlist_id" name="youtube_playlist_id">
         <input type="hidden" value={{ playlist.uri }} id="spotify_playlist_uri" name="spotify_playlist_uri">
         <button>Yes please do the thing</button>
     </form>
