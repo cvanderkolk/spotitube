@@ -56,6 +56,12 @@ def search_youtube_for_song(query):
     else:
         return None
 
+from rq import Queue
+from redis import Redis
+from rq.decorators import job
+redis_conn = Redis()
+
+@job('high', connection=redis_conn)
 def add_songs_to_playlist(songs, youtube_playlist_id):
     for song in songs:
         youtube_video = search_youtube_for_song(song)
@@ -115,7 +121,7 @@ def make_playlist():
         youtube_playlist = youtube.get_playlists(youtube_playlist_id)['items'][0]
     else:
         youtube_playlist = youtube.create_playlist(title=name, description=description)
-    
+
     add_songs_to_playlist(songs, youtube_playlist['id'])
     return redirect('https://www.youtube.com/playlist?list={}'.format(youtube_playlist['id']))
 
