@@ -20,7 +20,16 @@ from authlib.client import OAuth2Session
 from flask import Flask, render_template, request, redirect
 from pyyoutube import Api
 
+from rq import Queue
+from worker import conn
+
 app = flask.Flask(__name__)
+
+if app.config['ENV'] == 'production':
+    q = Queue(connection=conn)
+else:
+    q = Queue(connection=conn, is_async=False)
+
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", default=False)
@@ -56,12 +65,6 @@ def search_youtube_for_song(query):
     else:
         return None
 
-from rq import Queue
-from redis import Redis
-from rq.decorators import job
-redis_conn = Redis()
-
-@job('high', connection=redis_conn)
 def add_songs_to_playlist(songs, youtube_playlist_id):
     for song in songs:
         youtube_video = search_youtube_for_song(song)
@@ -122,7 +125,7 @@ def make_playlist():
     else:
         youtube_playlist = youtube.create_playlist(title=name, description=description)
 
-    add_songs_to_playlist(songs, youtube_playlist['id'])
+    q.enqueue(add_songs_to_playlist, kwargs=dict(songs=songs, youtube_playlist_id=youtube_playlist['id']))
     return redirect('https://www.youtube.com/playlist?list={}'.format(youtube_playlist['id']))
 
 
