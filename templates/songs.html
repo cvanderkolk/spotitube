@@ -35,6 +35,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
+        <form action="/makePlaylist" method="POST">
         <div class="one-half column">
             Do you mean this Spotify playlist?<Br>
                 <img class="u-max-full-width" src={{ playlist.images[0].url }}>
@@ -61,7 +62,6 @@
     </div>
     <div class="row section">
         <p> is all this shit fine with you? </p>
-        <form action="/makePlaylist" method="POST">
             <input type="hidden" value={{ playlist.uri }} id="spotify_playlist_uri" name="spotify_playlist_uri">
             <button class="button button-primary" type="submit">Yes please do the thing</button>
         </form>
