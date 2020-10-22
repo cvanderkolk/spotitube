@@ -19,12 +19,14 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/normalize.css">
-  <link rel="stylesheet" href="../static/skeleton.css">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/skeleton.css') }}">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
+
 
   <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 </head>
 <body>
@@ -35,7 +37,7 @@
     <div class="row">
         <div class="one-half column">
             Do you mean this Spotify playlist?<Br>
-                <img style='height: 100%; width: 100%; object-fit: contain' src={{ playlist.images[0].url }}>
+                <img class="u-max-full-width" src={{ playlist.images[0].url }}>
             <b>Name</b>: {{ playlist.name }}<br>
             <b>Description</b>: {{ playlist.description }}<br>
             Here are the tracks:<br>
@@ -48,7 +50,7 @@
         <div class="one-half column">
             {% if youtube_playlist %}
                 Importing into this YouTube playlist:<br>
-                <img src={{ youtube_playlist.snippet.thumbnails.high.url }}><br>
+                <img class="u-max-full-width" src={{ youtube_playlist.snippet.thumbnails.high.url }}><br>
                 <H2>{{ youtube_playlist.snippet.title }}</H2><br>
                 <p>{{ youtube_playlist.snippet.description }}</p>
                 <input type="hidden" value={{ youtube_playlist.id }} id="youtube_playlist_id" name="youtube_playlist_id">
@@ -56,11 +58,14 @@
                 <p>You didn't select a Youtube playlist, so we're creating one for you with the same name as your Spotify playlist.</p>
             {% endif %}
         </div>
+    </div>
+    <div class="row section">
         <p> is all this shit fine with you? </p>
-    <form action="/makePlaylist" method="POST">
-        <input type="hidden" value={{ playlist.uri }} id="spotify_playlist_uri" name="spotify_playlist_uri">
-        <button>Yes please do the thing</button>
-    </form>
+        <form action="/makePlaylist" method="POST">
+            <input type="hidden" value={{ playlist.uri }} id="spotify_playlist_uri" name="spotify_playlist_uri">
+            <button class="button button-primary" type="submit">Yes please do the thing</button>
+        </form>
+    </div>
   </div>
 
 <!-- End Document

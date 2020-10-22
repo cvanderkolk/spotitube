@@ -19,12 +19,14 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/normalize.css">
-  <link rel="stylesheet" href="../static/skeleton.css">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/skeleton.css') }}">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
 
   <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
 
 </head>
 <body>
@@ -40,6 +42,11 @@
         </div>
         <div class="one-half column">
           <table class="u-full-width">
+            <tr>
+              <td><input type="radio" name="youtube_playlist"></td>
+              <td></td>
+              <td>Just make a new playlist bitch</td>
+            </tr>
             {% for playlist in playlists %}
               <tr>
                 <td><input type="radio" name="youtube_playlist" id={{ playlist.id }} value={{ playlist.id }}></td>
@@ -47,14 +54,11 @@
                 <td><a href="https://www.youtube.com/playlist?list={{ playlist.id }}" target="_blank">{{ playlist.snippet.title }}</a></td>
               </tr>
             {% endfor %}
-              <tr>
-                <td><input type="radio"></td>
-                <td></td>
-                <td>Just make a new playlist bitch</td>
-              </tr>
           </table>
         </div>
-        <button type="submit">Do the thing</button>
+      </div>
+      <div class="row section">
+        <button class="button button-primary" type="submit">Do the thing</button>
       </div>
     </form>
   </div>
