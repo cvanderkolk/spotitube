@@ -125,7 +125,7 @@ def do_thing():
             },
         )
 
-    if youtube_playlist_id and not youtube_playlist_id == "none":
+    if youtube_playlist_id and not youtube_playlist_id == "on":
         youtube_playlist = youtube.get_playlists(youtube_playlist_id)["items"][0]
     else:
         youtube_playlist = None
