@@ -32,7 +32,7 @@
 /* Values
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .values {
-  background-image: url('../images/values-bg.jpg');
+  background-image: url('../images/green-bg.jpg');
   background-size: cover;
   color: #fff;
   padding-bottom: 5rem;
@@ -54,6 +54,11 @@
 .get-help {
   border-bottom: 1px solid #ddd;
 }
+
+.get-help .ol {
+    border-bottom: 1px solid #ddd;
+  }
+  
 
 /* Categories
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -148,4 +153,116 @@
     top: -14rem;
     max-height: 570px;
   }
+}
+
+div.parent {
+	text-align: center;
+	}
+ol {
+	display: inline-block; 
+	text-align: left; 
+}
+li {
+	text-align: left; 
+}
+
+img.arrow {
+    float:right;
+    width:100px;
+    padding-bottom:10px;
+    padding-right:15%;
+}
+
+h2 {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+img.spotify-howto {
+    width: 100%;
+}
+
+input.spotify {
+  padding-bottom:10px;
+}
+
+p.smalltext {
+  font-size: small;
+}
+
+p.smalltext:focus ~ div.spotify-howto {
+  display: block;
+}
+
+div.spotify-howto {
+  display: none;
+}
+
+input[type=checkbox].reveal {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+label {
+  text-align: center;
+}
+
+input[type=radio] {
+  float: left;
+  padding-left: 10px;
+}
+
+label.reveal { 
+ -webkit-appearance: push-button;
+ -moz-appearance: button; 
+ display: inline-block;
+ margin: 60px 0 10px 0;
+ cursor: pointer;
+ color: #1EAEDB;
+ text-align:center;
+}
+
+/* Toggled State */
+input[type=checkbox].reveal:checked ~ div.spotify-howto {
+  display: block;
+}
+
+td.bg-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+}
+
+td.bg-wrap label {
+  position: relative;
+  z-index: 5;
+}
+
+td.bg-wrap input {
+  position: relative;
+  z-index: 5;
+}
+
+td.bg-wrap img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  vertical-align: middle;
+  width: 100%;
+  height: auto;
+  opacity: 0.3;
+}
+
+div.center {
+  margin-left: auto;  
+  margin-right: auto;
+}
+
+p.thick {
+  font-weight: bold;
+}
+
+p.error {
+  color: red;
 }

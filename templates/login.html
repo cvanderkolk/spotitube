@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'base.html' %}
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Spotitube</title>
-  <meta name="description" content="">
-  <meta name="author" content="Chris VanderKolk">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
-  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/skeleton.css') }}">
-  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
-
-  <!-- Favicon
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+{% block content %}
 <div class="section hero">
   <div class="container">
+   <div class ="row">
     <div class="one-half column">
       <h1>Spotitube</h1>
       <h4 class="hero heading">Convert your Spotify playlists into YouTube playlists</p>
@@ -42,9 +12,39 @@
     <div class="one-half column logos">
       <img class="logos" src="{{ url_for('static', filename='images/logo.png') }}">
     </div>
+   </div>
   </div>
 </div>
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-</html>
+
+<div class="section get-help">
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <h3>Do you want to actually watch your current rotation?</h3>
+        <p class="section-description"><b>Want YouTube to just play music videos that fit your current vibe,</b> but tired of it going completely off the rails because you went on a Sarah McLaughlan rabbithole a few months ago and YouTube will never let you forget about it?</p>
+        <img class="u-max-full-width" src="https://38.media.tumblr.com/d1dec0d3023bbd10e4d3503ae107384a/tumblr_n31fw2IQPM1qe2gfgo3_r1_500.gif">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section values">
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <h3>Here are the steps:</h3>
+        <div class="parent">
+          <ol>
+            <li>Log into your YouTube account</li>
+            <li>Copy + paste a public Spotify playlist URI into the box</li>
+            <li>Select your destination</li>
+            <li>Press the button</li>
+            <li>Wait</li>
+            <li>Success!</li>
+          </ol>
+        </div>
+        <a class="button button-primary" href="google/login">Log-in to Youtube to get started</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

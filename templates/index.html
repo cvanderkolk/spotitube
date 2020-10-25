@@ -1,69 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'base.html' %}
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Spotitube</title>
-  <meta name="description" content="">
-  <meta name="author" content="Chris VanderKolk">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
-  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/skeleton.css') }}">
-  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
-
-  <!-- Favicon
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+{% block content %}
   <div class="container">
     <form action="/dothing" method="POST">
       <div class="row">
-        <div class="one-half column">
+        <div class="five columns">
+          <h2>Step 1</h2>
+          <p><b>Copy & paste a Spotify URI into this box.</b><br><br>Make sure it's public!</p>
+          <img class="arrow" src="{{ url_for('static', filename='images/arrow.gif') }}"><br>
           <label for="spotify_playlist_uri">Spotify Playlist URI</label>
-          <input class="u-full-width" type="text" id="spotify_playlist_uri" name="spotify_playlist_uri">
+          <input class="u-full-width spotify" type="text" id="spotify_playlist_uri" name="spotify_playlist_uri">
+
+          {% if error %}
+            <p class="error">The playlist URI you entered was invalid. Could you double check that it is valid and a public playlist?</p>
+          {% endif %}
+
+          <label class="reveal" for="toggle-1">(hi I am clueless please show me how to do that)</label>
+          <input class="reveal" type="checkbox" id="toggle-1">
+
+          <div class="spotify-howto">
+            <p class="smalltext"><img class="spotify-howto" src="{{ url_for('static', filename='images/spotify-01.gif') }}">Click the <code>...</code> button on your playlist</p>
+            <p class="smalltext"><img class="spotify-howto" src="{{ url_for('static', filename='images/spotify-02.png') }}">Click <code>Share</code> and <code>Copy Spotify URI</code></p>
+          </div>
+
         </div>
-        <div class="one-half column">
-          <table class="u-full-width">
-            <tr>
-              <td><input type="radio" name="youtube_playlist"></td>
-              <td></td>
-              <td>Just make a new playlist bitch</td>
-            </tr>
-            {% for playlist in playlists %}
+        <div class="five columns">
+          <h2>Step 2</h2>
+          <p><b>Choose your playlist destination in YouTube.</b><br><br>If you don’t want to dump them into an existing playlist, just select "<i>Create new playlist</i>" and we'll make one for you.</p>
+          <div style="height:600px; overflow:auto">
+            <table class="u-full-width">
               <tr>
-                <td><input type="radio" name="youtube_playlist" id={{ playlist.id }} value={{ playlist.id }}></td>
-                <td><img src={{ playlist.snippet.thumbnails.default.url }}></td>
-                <td><a href="https://www.youtube.com/playlist?list={{ playlist.id }}" target="_blank">{{ playlist.snippet.title }}</a></td>
+                <td class="bg-wrap">
+                  <input type="radio" name="youtube_playlist" id="none">
+                  <label for="none">(Create new playlist)</label>
+                </td>
               </tr>
-            {% endfor %}
-          </table>
+              {% for playlist in playlists %}
+                <tr>
+                  <td class="bg-wrap">
+                    <img src={{ playlist.snippet.thumbnails.medium.url }}>
+                    <input type="radio" name="youtube_playlist" id={{ playlist.id }} value={{ playlist.id }}>
+                    <label for={{ playlist.id }}>{{ playlist.snippet.title }}</label>
+                  </td>
+                  <!--
+                  <td></td>
+                  <a href="https://www.youtube.com/playlist?list={{ playlist.id }}" target="_blank">
+                  -->
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="row section">
-        <button class="button button-primary" type="submit">Do the thing</button>
+        <div class="two columns">
+          <h2>Step 3</h2>
+          <button class="button button-primary center" type="submit"><h5>👉🔘 Click the button</h5></button>
+        </div>
       </div>
     </form>
   </div>
-
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-</html>
+{% endblock %}

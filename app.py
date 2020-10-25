@@ -17,7 +17,7 @@ import youtube
 
 import googleapiclient.discovery
 from authlib.client import OAuth2Session
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from pyyoutube import Api
 
 from flask_executor import Executor
@@ -55,8 +55,8 @@ def add_songs_to_playlist(songs, youtube_playlist_id):
             print('No video found for {}. \n Video info: {}'.format(song, youtube_video))
 
 def get_spotify_playlist(playlist_uri):
-    playlist_items = spotify.playlist_items(playlist_uri)
     playlist = spotify.playlist(playlist_uri, fields='name,description,uri,images')
+    playlist_items = spotify.playlist_items(playlist_uri)
     songs = []
     ## TODO: paginate thru so we get ALL songs goddamnit
     for track in playlist_items['items']:
@@ -79,9 +79,13 @@ def search_youtube_for_song(query):
 @app.route('/')
 def index():
     if google_auth.is_logged_in():
-        user_info = google_auth.get_user_info()
-        playlists = youtube.get_playlists()['items']
-        return render_template('index.html',  user_info=user_info, playlists=playlists)
+        session['user_info'] = google_auth.get_user_info()
+        session['youtube_playlists'] = youtube.get_playlists()['items']
+        return render_template(
+            'index.html',
+            user_info=session['user_info'],
+            playlists=session['youtube_playlists']
+        )
     else:
         return render_template('login.html')
     return 'You are not currently logged in.'
@@ -91,9 +95,22 @@ from flask import request
 def do_thing():
     playlist_uri = request.form['spotify_playlist_uri']
     youtube_playlist_id = request.form.get('youtube_playlist')
-    songs, playlist = get_spotify_playlist(playlist_uri)
+    try:
+        songs, playlist = get_spotify_playlist(playlist_uri)
+    except spotipy.exceptions.SpotifyException as error:
+        print('Spotify error: {}'.format(error))
+        return render_template(
+            'index.html',
+            user_info=session['user_info'],
+            playlists=session['youtube_playlists'],
+            error={
+                'type': 'invalid_playlist',
+                'message': 'Invalid playlist',
+                'raw_error': error,
+            }
+        )
 
-    if youtube_playlist_id and not youtube_playlist_id == 'on':
+    if youtube_playlist_id and not youtube_playlist_id == 'none':
         youtube_playlist = youtube.get_playlists(youtube_playlist_id)['items'][0]
     else:
         youtube_playlist = None
@@ -110,6 +127,8 @@ def make_playlist():
     playlist_uri = request.form['spotify_playlist_uri']
     youtube_playlist_id = request.form.get('youtube_playlist_id')
     songs, playlist = get_spotify_playlist(playlist_uri)
+
+
     now = datetime.now()
     name = playlist.get('name', 'SpotifyToYoutube Playlist {}'.format(now.strftime('%m/%d/%Y')))
     description = playlist.get('description', '')
