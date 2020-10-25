@@ -170,7 +170,6 @@ img.arrow {
     float:right;
     width:100px;
     padding-bottom:10px;
-    padding-right:15%;
 }
 
 h2 {
@@ -188,6 +187,7 @@ input.spotify {
 
 p.smalltext {
   font-size: small;
+  text-align: center;
 }
 
 p.smalltext:focus ~ div.spotify-howto {
@@ -206,6 +206,11 @@ input[type=checkbox].reveal {
 
 label {
   text-align: center;
+}
+
+label.spotify_uri {
+  text-align: left;
+  padding-top: 100px;
 }
 
 input[type=radio] {

@@ -7,15 +7,15 @@
         <div class="five columns">
           <h2>Step 1</h2>
           <p><b>Copy & paste a Spotify URI into this box.</b><br><br>Make sure it's public!</p>
-          <img class="arrow" src="{{ url_for('static', filename='images/arrow.gif') }}"><br>
-          <label for="spotify_playlist_uri">Spotify Playlist URI</label>
+          <img class="arrow" src="{{ url_for('static', filename='images/arrow.gif') }}">
+          <label class="spotify_uri" for="spotify_playlist_uri">Spotify Playlist URI</label>
           <input class="u-full-width spotify" type="text" id="spotify_playlist_uri" name="spotify_playlist_uri">
 
           {% if error %}
             <p class="error">The playlist URI you entered was invalid. Could you double check that it is valid and a public playlist?</p>
           {% endif %}
 
-          <label class="reveal" for="toggle-1">(hi I am clueless please show me how to do that)</label>
+          <label class="reveal" for="toggle-1">(Please show me how to do that)</label>
           <input class="reveal" type="checkbox" id="toggle-1">
 
           <div class="spotify-howto">
@@ -45,11 +45,12 @@
                 </tr>
               {% endfor %}
             </table>
+            <p class="smalltext"><a href="https://www.youtube.com/view_all_playlists?nv=1">View/edit these playlists on YouTube</a></p>
           </div>
         </div>
         <div class="two columns">
           <h2>Step 3</h2>
-          <button class="button button-primary center" type="submit"><h5>👉🔘 Click the button</h5></button>
+          <button class="button button-primary center" type="submit"><b>👉🔘 Click the button</b></button>
         </div>
       </div>
     </form>
