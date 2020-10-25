@@ -137,11 +137,5 @@ def make_playlist():
     if not youtube_playlist_id:
         youtube_playlist_id = youtube.create_playlist(title=name, description=description).get('id')
 
-    executor.submit(add_songs_to_playlist, songs[0:1], youtube_playlist_id)
+    executor.submit(add_songs_to_playlist, songs, youtube_playlist_id)
     return redirect('https://www.youtube.com/playlist?list={}'.format(youtube_playlist_id))
-
-
-# TODO: next features
-# 1) list youtube playlists and add checkboxes so a user can select an existing playlist to add to
-# 2) make it prettier
-# 3) spotify auth, list YOUR public playlists
