@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <form action="/makePlaylist" method="POST">
+      <div class="row">
+        <div class="five columns">
+          <h2>Step 4</h2>
+          <p class="thick">Confirm this is the right Spotify playlist</p>
+          <p class="playlist">
+            <img src="{{ playlist.images[0].url }}">
+            <b>Name</b>: {{ playlist.name }}<br>
+            <b>Description</b>: {{ playlist.description }}<br>
+          </p>
+
+          <b>Tracks:</b>
+          <div class="scrollbox">
+            <ol>
+              {% for song in songs %}
+                <li>{{ song }}</li>
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+
+        <div class="five columns">
+          <h2>Step 5</h2>
+          <p class="thick">Confirm YouTube details.</p>
+          {% if youtube_playlist %}
+              <p class="playlist">
+                <img src={{ youtube_playlist.snippet.thumbnails.high.url }}>
+                Importing into this YouTube playlist:<br>
+                <b>Name</b>: {{ youtube_playlist.snippet.title }}<br>
+                <b>Description</b>: {{ youtube_playlist.snippet.description }}
+              </p>
+              <input type="hidden" value={{ youtube_playlist.id }} id="youtube_playlist_id" name="youtube_playlist_id">
+          {% else %}
+              <p>You didn't select a YouTube playlist, so we're creating one for you with the same name as your Spotify playlist.</p>
+              <div class="inline-field">
+                <input type="checkbox" id="make_public" name="make_public">
+                <label for="make_public">Make the new playlist public?</label>
+              </div>
+          {% endif %}
+        </div>
+        <div class="two columns">
+          <h2>Step 6</h2>
+          <button class="button button-primary center" type="submit"><b>👉🔘 confirm</b></button>
+          <input type="hidden" value={{ playlist.uri }} id="spotify_playlist_uri" name="spotify_playlist_uri">
+          <p class="smalltext"><a href="/">oh no this is wrong plz take me back</a></p>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

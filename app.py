@@ -13,14 +13,12 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import flask
 import google.oauth2.credentials
 import google_auth
-import youtube
-
 import googleapiclient.discovery
+import youtube
 from authlib.client import OAuth2Session
-from flask import Flask, render_template, request, redirect, session
-from pyyoutube import Api
-
+from flask import Flask, redirect, render_template, request, session
 from flask_executor import Executor
+from pyyoutube import Api
 
 app = flask.Flask(__name__)
 
@@ -103,13 +101,11 @@ def index():
     return "You are not currently logged in."
 
 
-from flask import request
-
-
-@app.route("/dothing", methods=["POST"])
+@app.route("/confirm", methods=["POST"])
 def do_thing():
     playlist_uri = request.form["spotify_playlist_uri"]
     youtube_playlist_id = request.form.get("youtube_playlist")
+
     try:
         songs, playlist = get_spotify_playlist(playlist_uri)
     except spotipy.exceptions.SpotifyException as error:
@@ -131,7 +127,7 @@ def do_thing():
         youtube_playlist = None
 
     return render_template(
-        "songs.html",
+        "confirm.html",
         songs=songs,
         playlist=playlist,
         youtube_playlist=youtube_playlist,
@@ -142,6 +138,8 @@ def do_thing():
 def make_playlist():
     playlist_uri = request.form["spotify_playlist_uri"]
     youtube_playlist_id = request.form.get("youtube_playlist_id")
+    make_public = True if request.form.get("make_public") else False
+
     songs, playlist = get_spotify_playlist(playlist_uri)
 
     now = datetime.now()
@@ -155,7 +153,7 @@ def make_playlist():
 
     if not youtube_playlist_id:
         youtube_playlist_id = youtube.create_playlist(
-            title=name, description=description
+            title=name, description=description, public=make_public
         ).get("id")
 
     executor.submit(add_songs_to_playlist, songs, youtube_playlist_id)

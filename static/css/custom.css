@@ -170,6 +170,7 @@ img.arrow {
     float:right;
     width:100px;
     padding-bottom:10px;
+    padding-right:50px;
 }
 
 h2 {
@@ -270,4 +271,24 @@ p.thick {
 
 p.error {
   color: red;
+}
+
+p.playlist img {
+  float: right;
+  margin: 10px;
+  height: 150px;
+}
+
+.scrollbox {
+  float: left;
+  height: 500px;
+  width: 100%;
+  overflow: auto;
+}
+
+.inline-field input,
+.inline-field label {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
 }

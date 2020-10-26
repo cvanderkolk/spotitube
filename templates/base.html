@@ -8,7 +8,8 @@
   <title>Spotitube</title>
   <meta name="description" content="">
   <meta name="author" content="Chris VanderKolk">
-
+  {% block metaheader %}
+  {% endblock %}
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,9 +24,9 @@
   <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/skeleton.css') }}">
   <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
 
-  <!-- Favicon
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
 
 </head>
 <body>
