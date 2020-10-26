@@ -61,7 +61,9 @@ def add_songs_to_playlist(songs, youtube_playlist_id):
 
 
 def get_spotify_playlist(playlist_uri):
-    playlist = spotify.playlist(playlist_uri, fields="name,description,uri,images")
+    playlist = spotify.playlist(
+        playlist_uri, fields="name,description,uri,images,external_urls"
+    )
     playlist_items = spotify.playlist_items(playlist_uri)
     songs = []
     ## TODO: paginate thru so we get ALL songs goddamnit
@@ -97,7 +99,7 @@ def index():
             playlists=session["youtube_playlists"],
         )
     else:
-        return render_template("login.html")
+        return render_template("login.html", nonav=True)
     return "You are not currently logged in."
 
 

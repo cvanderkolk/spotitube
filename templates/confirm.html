@@ -8,7 +8,7 @@
           <h2>Step 4</h2>
           <p class="thick">Confirm this is the right Spotify playlist</p>
           <p class="playlist">
-            <img src="{{ playlist.images[0].url }}">
+            <a href="{{ playlist.external_urls.spotify }}" target="_blank"><img src="{{ playlist.images[0].url }}"></a>
             <b>Name</b>: {{ playlist.name }}<br>
             <b>Description</b>: {{ playlist.description }}<br>
           </p>
@@ -28,7 +28,7 @@
           <p class="thick">Confirm YouTube details.</p>
           {% if youtube_playlist %}
               <p class="playlist">
-                <img src={{ youtube_playlist.snippet.thumbnails.high.url }}>
+                <a href="https://www.youtube.com/playlist?list={{ youtube_playlist.id }}" target="_blank"><img src={{ youtube_playlist.snippet.thumbnails.high.url }}></a>
                 Importing into this YouTube playlist:<br>
                 <b>Name</b>: {{ youtube_playlist.snippet.title }}<br>
                 <b>Description</b>: {{ youtube_playlist.snippet.description }}

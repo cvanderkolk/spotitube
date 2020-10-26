@@ -15,20 +15,6 @@
   margin-bottom: 1.2rem;
 }
 
-/* Hero
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.phones {
-  position: relative;
-}
-.phone {
-  position: relative;
-  max-width: 80%;
-  margin: 3rem auto -12rem;
-}
-.phone + .phone {
-  display: none;
-}
-
 /* Values
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .values {
@@ -79,7 +65,7 @@
   .hero {
     padding-bottom: 12rem;
     text-align: left;
-    height: 165px;
+    height: 100px;
   }
   .phone {
     position: absolute;
@@ -140,7 +126,7 @@
     padding: 20rem 0 19rem;
   }
   .hero {
-    padding: 22rem 0;
+    padding: 10rem 0;
   }
   .hero-heading {
     font-size: 3.0rem;
@@ -291,4 +277,37 @@ p.playlist img {
   display: inline-block;
   margin-bottom: 0;
   vertical-align: middle;
+}
+
+header {
+  background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 25px 0 black;
+}
+
+header * {
+  display: inline;
+}
+
+header li {
+  margin: 25px;
+}
+
+header li img {
+  margin: 5px;
+  vertical-align: bottom;
+}
+
+header li a {
+  color: black;
+  text-decoration: none;
+}
+
+.body {
+  padding-top: 25px;
 }
